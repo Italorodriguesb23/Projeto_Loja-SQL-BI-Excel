@@ -1,0 +1,50 @@
+-- Criação do banco de dados
+CREATE DATABASE loja_ir4;
+
+-- Usando o banco de dados recém-criado        
+USE loja_ir4;
+
+-- Criação da tabela de clientes                                   
+CREATE TABLE clientes (
+    id INT PRIMARY KEY AUTO_INCREMENT,
+    nome VARCHAR(500) NOT NULL,
+    estado VARCHAR(500),
+    data_nascimento DATE
+);
+
+-- Criação da tabela de marcas
+CREATE TABLE marcas (
+    id INT PRIMARY KEY AUTO_INCREMENT,
+    nome VARCHAR(50) NOT NULL
+);
+
+-- Criação da tabela de celulares
+CREATE TABLE celulares (
+    id INT PRIMARY KEY AUTO_INCREMENT,
+    modelo VARCHAR(100) NOT NULL,
+    marca_id INT,
+    preco DECIMAL(10, 2) NOT NULL,
+    categoria VARCHAR(100) NOT NULL,
+    armazenamento VARCHAR(100) NOT NULL,
+    FOREIGN KEY (marca_id) REFERENCES marcas(id)
+);
+
+-- Criação da tabela de vendas
+CREATE TABLE vendas (
+    id INT PRIMARY KEY AUTO_INCREMENT,
+    cliente_id INT,
+    celular_id INT,
+    quantidade INT NOT NULL,
+    ano INT NOT NULL,
+    preco_unitario DECIMAL(10, 2) NOT NULL,
+    FOREIGN KEY (cliente_id) REFERENCES clientes(id),
+    FOREIGN KEY (celular_id) REFERENCES celulares(id)
+);
+
+-- Inserção de dados na tabela de marcas
+INSERT INTO marcas (nome) VALUES
+    ('Apple'),
+    ('Samsung'),
+    ('Xiaomi'),
+    ('Motorola'),
+    ('Realme');
