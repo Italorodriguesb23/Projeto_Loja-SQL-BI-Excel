@@ -1,0 +1,50 @@
+1. Lucro por ano:
+SELECT    
+          ano,    
+          SUM(preco_unitario) AS lucro
+FROM     vendas 
+GROUP BY     ano
+ORDER BY     ano;
+
+
+
+2. Estados que mais venderam:
+SELECT
+      'Brasil' as país,
+       c.estado,
+       SUM(v.quantidade) AS total_vendido
+FROM vendas v
+JOIN clientes c ON v.cliente_id = c.id
+JOIN celulares ce ON v.celular_id = ce.id
+GROUP BY país, c.estado
+ORDER BY total_vendido DESC
+limit 5;
+
+
+
+3. Vendas por marca:
+SELECT
+        m.nome AS marca,
+        SUM(v.quantidade) AS total_vendas
+FROM vendas v
+JOIN celulares ce ON v.celular_id = ce.id
+JOIN marcas m ON ce.marca_id = m.id
+GROUP BY m.nome
+ORDER BY total_vendas DESC;
+
+
+
+4. Top 5 modelos mais vendidos:
+SELECT
+        m.nome AS marca,
+        ce.modelo,
+        SUM(v.quantidade) AS cel_mais_vendido
+FROM vendas v
+JOIN celulares ce ON v.celular_id = ce.id
+JOIN marcas m ON ce.marca_id = m.id
+GROUP BY m.nome, ce.modelo
+ORDER BY cel_mais_vendido DESC
+LIMIT 5;
+
+
+
